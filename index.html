@@ -15,17 +15,13 @@
             --text-muted: #a0a0a0;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--primary-bg);
             color: var(--text-light);
             font-family: 'Lato', sans-serif;
-            line-height: 1.6;
+            overflow-x: hidden;
         }
 
         h1, h2, h3, .logo {
@@ -33,201 +29,298 @@
             color: var(--gold);
         }
 
-        /* Navbar */
+        /* Navbar & Cart Icon */
         header {
-            padding: 2rem 5%;
+            padding: 1.5rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             background-color: var(--primary-bg);
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+        .logo { font-size: 1.8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
+        .nav-right { display: flex; align-items: center; gap: 2rem; }
+        
+        .cart-icon {
+            cursor: pointer;
+            position: relative;
+            font-size: 1.2rem;
             color: var(--gold);
         }
 
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 8rem 2rem;
-            background: linear-gradient(rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.9)), 
-                        url('https://images.unsplash.com/photo-1615526689612-5c8e312815ec?q=80&w=2070&auto=format&fit=crop') center/cover;
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -15px;
+            background: var(--gold);
+            color: var(--primary-bg);
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 50%;
         }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
+        /* Buttons */
         .btn {
             background-color: transparent;
             color: var(--gold);
             border: 1px solid var(--gold);
-            padding: 1rem 2.5rem;
+            padding: 0.8rem 2rem;
             font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.3s;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            width: 100%;
+            margin-top: 1rem;
         }
 
-        .btn:hover {
-            background-color: var(--gold);
-            color: var(--primary-bg);
-        }
+        .btn:hover { background-color: var(--gold); color: var(--primary-bg); }
 
-        /* Products Section */
-        .products {
-            padding: 5rem 5%;
-            text-align: center;
-        }
-
-        .products h2 {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-        }
-
+        /* Products Grid */
+        .products { padding: 4rem 5%; text-align: center; }
+        .products h2 { font-size: 2.5rem; margin-bottom: 3rem; }
+        
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
         .card {
             background-color: var(--secondary-bg);
-            padding: 2rem;
+            padding: 1.5rem;
             border: 1px solid rgba(212, 175, 55, 0.1);
-            transition: transform 0.3s, border-color 0.3s;
+            transition: transform 0.3s;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--gold);
-        }
+        .card:hover { transform: translateY(-5px); border-color: var(--gold); }
+        .card-img { width: 100%; height: 250px; object-fit: cover; margin-bottom: 1rem; filter: grayscale(20%) contrast(120%); }
+        .card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .price { font-size: 1.2rem; color: var(--gold); margin: 1rem 0; }
 
-        .card-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            margin-bottom: 1.5rem;
-            filter: grayscale(20%) contrast(120%);
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .notes {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-
-        .price {
-            font-size: 1.2rem;
-            color: var(--gold);
-            margin-bottom: 1.5rem;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem;
+        /* Sliding Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100vh;
             background-color: var(--secondary-bg);
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-left: 1px solid var(--gold);
+            padding: 2rem;
+            transition: right 0.4s ease;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
         }
 
-        footer p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        .cart-sidebar.active { right: 0; }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 1rem;
         }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-items { flex-grow: 1; overflow-y: auto; }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            background: var(--primary-bg);
+            padding: 1rem;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .cart-item-info h4 { font-size: 1rem; color: var(--text-light); font-family: 'Lato', sans-serif;}
+        .cart-item-info p { color: var(--gold); font-size: 0.9rem; }
+        
+        .remove-item { color: #ff4c4c; cursor: pointer; font-size: 0.8rem; border: none; background: none; margin-top: 5px;}
+
+        .cart-footer {
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            padding-top: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            z-index: 150;
+        }
+        .overlay.active { display: block; }
+
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo">Ameer Al Makdud</div>
-        <nav>
-            <ul>
-                <li><a href="#">Collections</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
+        <div class="nav-right">
+            <div class="cart-icon" onclick="toggleCart()">
+                CART 🛍️ <span class="cart-count" id="cart-count">0</span>
+            </div>
+        </div>
     </header>
-
-    <section class="hero">
-        <h1>The Essence of Royalty</h1>
-        <p>Discover our exclusive collection of handcrafted, non-alcoholic concentrated perfume oils distilled from the finest natural ingredients.</p>
-        <button class="btn">Shop the Collection</button>
-    </section>
 
     <section class="products">
         <h2>Signature Blends</h2>
         <div class="grid">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=1974&auto=format&fit=crop" alt="Oud Wood Bottle" class="card-img">
+                <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=1974&auto=format&fit=crop" class="card-img">
                 <h3>Royal Oud</h3>
-                <p class="notes">Notes: Agarwood, Rose, Amber</p>
-                <div class="price">₹2,499 / 12ml</div>
-                <button class="btn" style="padding: 0.8rem 2rem; font-size: 0.9rem;">Add to Cart</button>
+                <div class="price">₹2499</div>
+                <button class="btn" onclick="addToCart('Royal Oud', 2499)">Add to Cart</button>
             </div>
             
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2053&auto=format&fit=crop" alt="Musk Bottle" class="card-img">
+                <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2053&auto=format&fit=crop" class="card-img">
                 <h3>White Musk Tahara</h3>
-                <p class="notes">Notes: White Lotus, Vanilla, Musk</p>
-                <div class="price">₹1,899 / 12ml</div>
-                <button class="btn" style="padding: 0.8rem 2rem; font-size: 0.9rem;">Add to Cart</button>
+                <div class="price">₹1899</div>
+                <button class="btn" onclick="addToCart('White Musk Tahara', 1899)">Add to Cart</button>
             </div>
 
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1904&auto=format&fit=crop" alt="Rose Bottle" class="card-img">
+                <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1904&auto=format&fit=crop" class="card-img">
                 <h3>Majestic Rose</h3>
-                <p class="notes">Notes: Taif Rose, Sandalwood, Saffron</p>
-                <div class="price">₹2,199 / 12ml</div>
-                <button class="btn" style="padding: 0.8rem 2rem; font-size: 0.9rem;">Add to Cart</button>
+                <div class="price">₹2199</div>
+                <button class="btn" onclick="addToCart('Majestic Rose', 2199)">Add to Cart</button>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="logo" style="font-size: 1.5rem; margin-bottom: 1rem;">Ameer Al Makdud</div>
-        <p>&copy; 2026 Ameer Al Makdud. All rights reserved.</p>
-    </footer>
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">₹0</span>
+            </div>
+            <button class="btn" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
 
+    <script>
+        // State Management
+        let cart = [];
+
+        // DOM Elements
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const overlay = document.getElementById('overlay');
+        const cartCount = document.getElementById('cart-count');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const cartTotalPrice = document.getElementById('cart-total-price');
+
+        // Functions
+        function toggleCart() {
+            cartSidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function addToCart(name, price) {
+            // Check if item already exists in cart
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name: name, price: price, quantity: 1 });
+            }
+            
+            updateCartUI();
+            
+            // Auto-open cart to show user it was added
+            if(!cartSidebar.classList.contains('active')) {
+                toggleCart();
+            }
+        }
+
+        function removeFromCart(name) {
+            cart = cart.filter(item => item.name !== name);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            // Update Item Count Badge
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.innerText = totalItems;
+
+            // Clear current cart HTML
+            cartItemsContainer.innerHTML = '';
+
+            // Calculate Total and build HTML
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align:center; margin-top:2rem; color:#a0a0a0;">Your cart is empty.</p>';
+            } else {
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+
+                    const cartItemHTML = `
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <h4>${item.name}</h4>
+                                <p>₹${item.price} x ${item.quantity}</p>
+                                <button class="remove-item" onclick="removeFromCart('${item.name}')">Remove</button>
+                            </div>
+                            <div style="font-weight:bold; color:#D4AF37;">
+                                ₹${itemTotal}
+                            </div>
+                        </div>
+                    `;
+                    cartItemsContainer.innerHTML += cartItemHTML;
+                });
+            }
+
+            // Update Total Price
+            cartTotalPrice.innerText = `₹${total}`;
+        }
+
+        function checkout() {
+            if(cart.length === 0) {
+                alert("Your cart is empty! Add some premium attar first.");
+            } else {
+                alert("This is where you would redirect to the Shopify Checkout API!");
+            }
+        }
+    </script>
 </body>
 </html>
